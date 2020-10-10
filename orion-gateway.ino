@@ -51,8 +51,6 @@ const char *ssid = "WIFI_SSID";
 const char *password = "WIFI_PASSWORD";
 //const char *password = "PLDTWIFIT2Z5Rssss";
 
-
-
 // gateway unique id
 const char *uid = "HTX-00001";
 
@@ -80,7 +78,7 @@ void setup()
   display.setTextColor(WHITE);
   display.setTextSize(1);
   display.setCursor(0, 0);
-  display.print("HYDRAEAN GATEWAY");
+  display.print("ORION GATEWAY");
   display.display();
 
   //SPI LoRa pins
@@ -112,7 +110,6 @@ void sendData(String LORA_DATA)
   LoRa.endPacket();
 }
 
-
 // update OLED Screen
 
 void setScreen(int yrssi, String message)
@@ -120,7 +117,7 @@ void setScreen(int yrssi, String message)
   // Dsiplay information
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.println("HYDRAEAN GATEWAY");
+  display.println("ORION GATEWAY");
   display.println(WiFi.localIP());
   display.setCursor(0, 20);
   display.print("Activity");
@@ -138,39 +135,39 @@ void setScreen(int yrssi, String message)
 void gateWayConnect(String LORA_DATA, int xrssi)
 {
 
-   setScreen(xrssi, "Connection Attempt!");
+  setScreen(xrssi, "Connection Attempt!");
   if (WiFi.status() == WL_CONNECTED)
   {
 
     // send report data
     String reqURL = "data=" + LORA_DATA;
-    http.begin(API_URL+"/report");
+    http.begin(API_URL + "/report");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
     http.POST(reqURL);
     setScreen(xrssi, "report sent!");
     http.end(); //Close connection
 
     // get data feed
-//    http.begin(API_URL+"/network/feed");
-//    int getFeed = http.GET();
-//    if(getFeed > 0){
-//    setScreen(xrssi, "EMIT DATA..");
-//    String FeedData = String(http.getString());
-//
-//    // broadcast advisories multiple times
-//    if(FeedData.length() > 10){
-//    Serial.println("Broadcasting Feed");
-//      sendData(FeedData);
-//      delay(2000);
-//      sendData(FeedData);
-//      delay(2000);
-//      sendData(FeedData);
-//      delay(2000);
-//       setScreen(xrssi, "READY");
-//    }
-//
-//    }
-//    http.end();
+    //    http.begin(API_URL+"/network/feed");
+    //    int getFeed = http.GET();
+    //    if(getFeed > 0){
+    //    setScreen(xrssi, "EMIT DATA..");
+    //    String FeedData = String(http.getString());
+    //
+    //    // broadcast advisories multiple times
+    //    if(FeedData.length() > 10){
+    //    Serial.println("Broadcasting Feed");
+    //      sendData(FeedData);
+    //      delay(2000);
+    //      sendData(FeedData);
+    //      delay(2000);
+    //      sendData(FeedData);
+    //      delay(2000);
+    //       setScreen(xrssi, "READY");
+    //    }
+    //
+    //    }
+    //    http.end();
 
     delay(2000);
   }

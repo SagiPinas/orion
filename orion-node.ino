@@ -1,5 +1,5 @@
 /*
-Orion Node 
+Orion Node
 Firmware for the Node IoT devices
 ----------------------------------
 Author: Bryce Narciso C. Mercines
@@ -46,7 +46,7 @@ String UID = "HN-00001";
 String LoRaData;
 
 // Replace with your network credentials
-const char *ssid = "Ornion_Node";
+const char *ssid = "Orion_Node";
 const char *password = "";
 
 // Create AsyncWebServer object on port 80
@@ -215,7 +215,7 @@ input{
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <meta name="theme-color" content="#07042C">
-  <title>Seantinel</title>
+  <title>Orion</title>
   </style>
 </head>
 
@@ -275,7 +275,7 @@ input{
       </g>
     </g>
   </svg>
-  <h2>Seantinel</h2>
+  <h2>Orion</h2>
   <center>
     <div class="content">
 
