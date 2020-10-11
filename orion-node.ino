@@ -34,13 +34,6 @@ String GPS_DATA;
 #define RST 14
 #define DIO0 26
 
-// define hardware triggers
-#define RESCUE_BTN 17
-#define ILLEGAL_BTN 16
-
-// LED Indicator
-#define INDICATOR 23
-
 // Most performant ISM Band (Philippines) good RSSI
 #define BAND 923E6
 
@@ -471,11 +464,9 @@ setInterval(()=>{
 
 void sendData(String LORA_DATA)
 {
-  digitalWrite(INDICATOR, HIGH);
   LoRa.beginPacket();
   LoRa.print(LORA_DATA);
   LoRa.endPacket();
-  digitalWrite(INDICATOR, LOW);
 }
 
 void echoMechanism()
@@ -527,13 +518,6 @@ void setup()
   display.println("ORION NODE");
   display.println("NODE ID: " + UID);
   display.display();
-
-  // set manual button pinmode
-  pinMode(RESCUE_BTN, INPUT);
-  pinMode(RESCUE_BTN, INPUT);
-
-  // LED INDICATOR
-  pinMode(INDICATOR, OUTPUT);
 
   //SPI LoRa pins
   SPI.begin(SCK, MISO, MOSI, SS);
@@ -595,21 +579,6 @@ void loop()
     {
       GPS_DATA = "{\"lat\": " + String(gps.location.lat()) + ",\"long\": " + String(gps.location.lng()) + "}";
     }
-  }
-
-  int EMB = digitalRead(RESCUE_BTN);
-  int IFB = digitalRead(ILLEGAL_BTN);
-
-  if (EMB == HIGH)
-  {
-    String eReport = report("emergency", "EMERGENCY DISTRESS CALL", "EMERGENCY DISTRESS CALL");
-    sendData(eReport);
-  }
-
-  if (IFB == HIGH)
-  {
-    String eReport = report("illegal_fishing", "Illegal Fishing Activity", "Illegal Fishing Alert!");
-    sendData(eReport);
   }
 
   // for echoing data
