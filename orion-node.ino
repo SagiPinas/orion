@@ -157,11 +157,6 @@ void setup()
   server.begin();
 }
 
-String report(String type, String msg, String title)
-{
-  return "{\"details\":\"" + msg + "\",\"device_id\":\"" + UID + "\",\"type\":\"" + type + "\",\"title\":\"" + title + "\",\"name\":\"" + title + "\",\"reportee\":\"N/A\",\"source_platform\":\"node\"}";
-}
-
 void loop()
 {
 
