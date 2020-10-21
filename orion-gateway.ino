@@ -5,7 +5,7 @@ Orion Gateway
 Author: Bryce Narciso C. Mercines
 */
 
-// API URL
+// WEB API URL
 String API_URL = "http://localhost:8000";
 
 #include <HTTPClient.h>
