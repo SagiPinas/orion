@@ -46,7 +46,7 @@ String UID = "IO-00001";
 String LoRaData;
 
 // Replace with your network credentials
-const char *ssid = "Orion_Node";
+const char *ssid = "Orion_Node_1";
 const char *password = "";
 
 // Create AsyncWebServer object on port 80
@@ -159,9 +159,6 @@ void setup()
 void loop()
 {
 
-  // node beacon test
-  sendData("Data from Node 1");
-  delay(4000);
   // for echoing data
   // testing echo
   int packetSize = LoRa.parsePacket();
@@ -174,11 +171,15 @@ void loop()
     {
       LoRaData = LoRa.readString();
       sendData("e1:" + LoRaData);
+      Serial.println("e1:" + LoRaData);
       delay(2000);
     }
   }
   else
   {
-    delay(3000);
+    // node beacon test
+    sendData("Data from Node 1");
+    Serial.println("Sending data from:" + UID);
+    delay(2000);
   }
 }
