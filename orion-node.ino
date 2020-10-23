@@ -147,7 +147,6 @@ void setup()
       String formData = webData;
 
       sendData(formData);
-      echoMechanism();
     }
 
     request->send_P(200, "text/plain", "recieved");
@@ -160,12 +159,26 @@ void setup()
 void loop()
 {
 
-  // Testing GPS data output
-  while (Serial.available() > 0)
-  {
-    Serial.println(Serial.read());
-  }
-
+  // node beacon test
+  sendData("Data from Node 1");
+  delay(4000);
   // for echoing data
-  echoMechanism();
+  // testing echo
+  int packetSize = LoRa.parsePacket();
+  if (packetSize)
+  {
+    //received a packet
+
+    //read packet
+    while (LoRa.available())
+    {
+      LoRaData = LoRa.readString();
+      sendData("e1:" + LoRaData);
+      delay(2000);
+    }
+  }
+  else
+  {
+    delay(3000);
+  }
 }
