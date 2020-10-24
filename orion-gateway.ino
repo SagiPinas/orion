@@ -5,9 +5,8 @@ Orion Gateway
 Author: Bryce Narciso C. Mercines
 */
 
-// WEB API URL
-String API_URL = "http://localhost:8000";
-
+// API URL
+String API_URL = "http://kraken-demo.herokuapp.com";
 #include <HTTPClient.h>
 #include "WiFi.h"
 
@@ -38,6 +37,9 @@ String API_URL = "http://localhost:8000";
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
+//LED INDICATOR
+#define BROADCAST_INDICATOR 23
+
 // Initialize Screen
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RST);
 
@@ -47,8 +49,8 @@ String LoRaData;
 HTTPClient http;
 
 // Replace with your network credentials
-const char *ssid = "WIFI_SSID";
-const char *password = "WIFI_PASSWORD";
+const char *ssid = "ZTE_2.4G_MK5p9F";
+const char *password = "W6mPecNb";
 //const char *password = "PLDTWIFIT2Z5Rssss";
 
 // gateway unique id
@@ -59,6 +61,8 @@ void setup()
   // Serial port for debugging purposes
   Serial.begin(115200);
 
+  pinMode(BROADCAST_INDICATOR, OUTPUT);
+
   //reset OLED display via software
   pinMode(OLED_RST, OUTPUT);
   digitalWrite(OLED_RST, LOW);
@@ -68,7 +72,7 @@ void setup()
   //initialize OLED
   Wire.begin(OLED_SDA, OLED_SCL);
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3c, false, false))
-  {
+  { // Address 0x3C for 128x32
     Serial.println(F("SSD1306 allocation failed"));
     for (;;)
       ; // Don't proceed, loop forever
@@ -138,7 +142,7 @@ void gateWayConnect(String LORA_DATA, int xrssi)
   setScreen(xrssi, "Connection Attempt!");
   if (WiFi.status() == WL_CONNECTED)
   {
-
+    digitalWrite(BROADCAST_INDICATOR, HIGH);
     // send report data
     String reqURL = "data=" + LORA_DATA;
     http.begin(API_URL + "/report");
@@ -181,6 +185,7 @@ void gateWayConnect(String LORA_DATA, int xrssi)
     sendData(LORA_DATA);
     delay(2000);
     setScreen(xrssi, "READY");
+    digitalWrite(BROADCAST_INDICATOR, LOW);
   }
 }
 
