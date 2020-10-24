@@ -162,6 +162,7 @@ void loop()
   // for echoing data
   // testing echo
   int packetSize = LoRa.parsePacket();
+  Serial.println("pz: " + packetSize);
   if (packetSize)
   {
     //received a packet
@@ -170,16 +171,13 @@ void loop()
     while (LoRa.available())
     {
       LoRaData = LoRa.readString();
-      sendData("e1:" + LoRaData);
-      Serial.println("e1:" + LoRaData);
-      delay(2000);
     }
+
+    sendData("e1:" + LoRaData);
+    Serial.println("e1:" + LoRaData);
   }
-  else
-  {
-    // node beacon test
-    sendData("Data from Node 1");
-    Serial.println("Sending data from:" + UID);
-    delay(2000);
-  }
+
+  // node beacon test
+  //  sendData("Data from Node 1");
+  //  Serial.println("Sending data from:" + UID);
 }
