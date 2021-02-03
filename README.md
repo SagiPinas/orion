@@ -12,7 +12,7 @@ The version of the firmware is written in Arduino C++ to support a large array o
 
 ### Device Overview:
 
-[![image](https://mist.now.sh/mist/on-1.png)]()
+[![image](https://mist.now.sh/mist/onode-1.png)]()
 The actual picture of an Orion node prototype consists of a power jack that takes in `5v DC` and a Heltec LoRa 32 development board. The node device puts up a wifi network with an HTTP web server that can receive some JSON payload data and transmit it via LoRa.
 
 The mesh protocol allows the device to echo other messages from other nodes effectively.
